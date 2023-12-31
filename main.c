@@ -2,10 +2,6 @@
 #include <X11/extensions/Xrandr.h>
 #include <stdio.h>
 
-#ifndef RR_PREFERRED
-#define RR_PREFERRED (1 << 11)
-#endif
-
 int main() {
     Display *display = XOpenDisplay(NULL);
     if (!display) {
@@ -37,7 +33,6 @@ int main() {
         printf("Screen %d:\n", i + 1);
         printf("  Name: %s\n", output_info->name);
 
-        // Use XRRGetScreenResourcesCurrent to get the current configuration
         XRRScreenResources *current_res = XRRGetScreenResourcesCurrent(display, root);
         for (int j = 0; j < current_res->nmode; ++j) {
             if (current_res->modes[j].id == crtc_info->mode) {
